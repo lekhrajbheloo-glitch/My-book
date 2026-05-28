@@ -19,7 +19,12 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: 8.5
+
+    - name: Initialize Gradle Wrapper
+      run: gradle wrapper
 
     - name: Create local.properties
       run: |
@@ -28,7 +33,6 @@ jobs:
 
     - name: Grant execution permission
       run: chmod +x gradlew
-      continue-on-error: true
 
     - name: Assemble Debug APK
       run: ./gradlew assembleDebug
